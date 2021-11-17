@@ -33,12 +33,14 @@ namespace emguCV
             this.cboDevice = new System.Windows.Forms.ComboBox();
             this.Device = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Server_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDetect
             // 
-            this.btnDetect.Location = new System.Drawing.Point(697, 69);
+            this.btnDetect.Location = new System.Drawing.Point(80, 400);
             this.btnDetect.Name = "btnDetect";
             this.btnDetect.Size = new System.Drawing.Size(75, 23);
             this.btnDetect.TabIndex = 0;
@@ -75,11 +77,32 @@ namespace emguCV
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(301, 404);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // Server_btn
+            // 
+            this.Server_btn.Location = new System.Drawing.Point(170, 400);
+            this.Server_btn.Name = "Server_btn";
+            this.Server_btn.Size = new System.Drawing.Size(104, 23);
+            this.Server_btn.TabIndex = 7;
+            this.Server_btn.Text = "Open Server";
+            this.Server_btn.UseVisualStyleBackColor = true;
+            this.Server_btn.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 450);
+            this.Controls.Add(this.Server_btn);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Device);
             this.Controls.Add(this.cboDevice);
@@ -101,6 +124,8 @@ namespace emguCV
         private System.Windows.Forms.ComboBox cboDevice;
         private System.Windows.Forms.Label Device;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button Server_btn;
     }
 }
 
