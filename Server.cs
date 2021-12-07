@@ -23,7 +23,7 @@ namespace ArduinoServerGit
         public Server()
         {
 
-            hostEntry = Dns.GetHostEntry("Your Host Name");
+            hostEntry = Dns.GetHostEntry("Your host name");
             IP = hostEntry.AddressList[1];
             Console.WriteLine(IP);
             listen = new TcpListener(IP, port);
@@ -51,11 +51,13 @@ namespace ArduinoServerGit
             {
                 try
                 {
+                    
                     byte[] data;
                     nwStream = client.GetStream();
                     DataToSend = Data;
                     data = Encoding.ASCII.GetBytes(DataToSend);
                     nwStream.Write(data, 0, data.Length);
+                   
                 }
                 catch (Exception ex)
                 {
