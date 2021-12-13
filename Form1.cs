@@ -145,7 +145,30 @@ namespace emguCV
             
         
         }
-        
+        private int ToDegrees(int X,Bitmap screen)
+        {
+            //the feild of view is 68.5
+            /*double adder= screen.Width/68.5;
+            int degree=0;
+            for (var i = 0; i < screen.Width; i+=adder)
+            {
+                degree++;
+                if (x>=i&&x<i+adder)
+                {
+                    return degree;
+                }
+            }
+            */
+            int pixelsfordegree=screen.Width/68.5;
+            if (X>0 && X<=screen.Width)
+            {
+                return  (X/pixelsfordegree)/1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             
