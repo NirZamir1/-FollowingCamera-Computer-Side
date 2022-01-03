@@ -23,7 +23,7 @@ namespace ArduinoServerGit
         public Server()
         {
 
-            hostEntry = Dns.GetHostEntry("Your host name");
+            hostEntry = Dns.GetHostEntry("DESKTOP-ORV5GO1");
             IP = hostEntry.AddressList[1];
             Console.WriteLine(IP);
             listen = new TcpListener(IP, port);
