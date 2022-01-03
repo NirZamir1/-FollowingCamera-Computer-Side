@@ -240,8 +240,10 @@ namespace emguCV
         bool isCom = false;
         private void button3_Click(object sender, EventArgs e)
         {
+            //Bye
             if (is_resSelected)
             {
+               
                 port = new SerialPort(ComCBO.SelectedItem.ToString());
                 port.Open();
                 Thread t = new Thread(new ThreadStart(senderData));
