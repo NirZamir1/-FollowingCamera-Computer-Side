@@ -240,7 +240,7 @@ namespace emguCV
         bool isCom = false;
         private void button3_Click(object sender, EventArgs e)
         {
-            //Hi Nir
+            //Bye Nir
             if (is_resSelected)
             {
                
