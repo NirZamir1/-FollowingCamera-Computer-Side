@@ -251,7 +251,7 @@ namespace emguCV
                 device.NewFrame += Device_NewFrame;
                 device.Start();
             }
-            
+            //Hi Again Nir
         }
 
         private void label2_Click(object sender, EventArgs e)
