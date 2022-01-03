@@ -22,8 +22,7 @@ namespace ArduinoServerGit
         public bool Is_Connected { get=>client.Connected;}
         public Server()
         {
-
-            hostEntry = Dns.GetHostEntry("DESKTOP-ORV5GO1");
+            hostEntry = Dns.GetHostEntry("Enter The Name");
             IP = hostEntry.AddressList[1];
             Console.WriteLine(IP);
             listen = new TcpListener(IP, port);
