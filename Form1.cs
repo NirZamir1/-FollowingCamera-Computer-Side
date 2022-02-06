@@ -72,7 +72,8 @@ namespace emguCV
 
         }
         
-        static readonly CascadeClassifier cascadeClassifier = new CascadeClassifier(@"C:\Users\PC\source\repos\emguCV\haarcascade_frontalface_alt_tree.xml");
+        static readonly CascadeClassifier Frontal_Face = new CascadeClassifier(@"C:\Users\PC\source\repos\emguCV\haarcascade_frontalface_alt_tree.xml");
+        static readonly CascadeClassifier Head = new CascadeClassifier(@"C:\Users\PC\source\repos\emguCV\haarcascade_fullbody.xml");
         int x_pos;
         int y_pos;
         int sum_x;
@@ -85,8 +86,9 @@ namespace emguCV
             sum_y = 0;
             bitmap = (Bitmap)eventArgs.Frame.Clone();
             Image<Bgr, byte> grayImage = bitmap.ToImage<Bgr, byte>();
-            Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2, 1);
-            foreach (Rectangle rec in rectangles)
+            Rectangle[] FrontalFaceRec = Frontal_Face.DetectMultiScale(grayImage, 1.05, 1);
+            //Rectangle[] ProfilFaceRec = SideView.DetectMultiScale(grayImage,1.5);
+            foreach (Rectangle rec in FrontalFaceRec)
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
@@ -98,11 +100,28 @@ namespace emguCV
                 sum_x += rec.X + (rec.Width) / 2;
                 sum_y += rec.Y + (rec.Height) / 2;
             }
-
-            if (rectangles.Length > 0)
+          /*  if (FrontalFaceRec.Length == 0)
             {
-                x_pos = sum_x / rectangles.Length;
-                y_pos = sum_y / rectangles.Length;
+                Rectangle[] ProfilFaceRec = Head.DetectMultiScale(grayImage,1.1);
+                foreach(Rectangle rec in ProfilFaceRec)
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        using (Pen pen = new Pen(Color.Red, 1))
+                        {
+                            g.DrawRectangle(pen, rec);
+                        }
+                    }
+                    sum_x += rec.X + (rec.Width) / 2;
+                    sum_y += rec.Y + (rec.Height) / 2;
+                }
+                
+            }
+          */
+            if (FrontalFaceRec.Length > 0)
+            {
+                x_pos = sum_x / FrontalFaceRec.Length;
+                y_pos = sum_y / FrontalFaceRec.Length;
                 
                 
             }
@@ -112,14 +131,21 @@ namespace emguCV
         }
         public void senderData()
         {
-            int screenWidth;
             while (true)
             {
+               
                 if (bitmap != null && x_pos>0)
                 {
                     
-                    port.WriteLine($"{ToDegrees(x_pos, 1280)}");
-                    Thread.Sleep(1000);
+                    port.WriteLine($"{ToDegrees(x_pos, device.VideoResolution.FrameSize.Width)}");
+                    if (device.VideoResolution.FrameSize.Width < 1200)
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    else
+                    {
+                        Thread.Sleep(2000);
+                    }
                 }
             }
 
@@ -184,17 +210,20 @@ namespace emguCV
                 }
             }
             */
-            double pixelsfordegree= (int)(screenWidth/68.5);
+            double pixelsfordegree= (screenWidth/68.5);
             
                 return (int) (X/pixelsfordegree);
             
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            if(device.IsRunning)
+            if (Is_Decleared)
             {
-                device.Stop();
+                if (device.IsRunning)
+                {
+                    device.SignalToStop();
+                    port.Close();
+                }
             }
         }
 
@@ -238,20 +267,19 @@ namespace emguCV
             Is_Decleared = true;
         }
         bool isCom = false;
+        Thread t;
         private void button3_Click(object sender, EventArgs e)
         {
-            //Bye Nir
             if (is_resSelected)
             {
                
                 port = new SerialPort(ComCBO.SelectedItem.ToString());
                 port.Open();
-                Thread t = new Thread(new ThreadStart(senderData));
+                t = new Thread(new ThreadStart(senderData));
                 t.Start();
                 device.NewFrame += Device_NewFrame;
                 device.Start();
             }
-            //Hi Again Nir
         }
 
         private void label2_Click(object sender, EventArgs e)
