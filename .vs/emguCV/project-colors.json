@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a00b10b4-d979-4e4e-b8db-f062d7ce4ffa": {
+      "ProjectGuid": "a00b10b4-d979-4e4e-b8db-f062d7ce4ffa",
+      "DisplayName": "emguCV",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}
