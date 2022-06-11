@@ -47,7 +47,6 @@ namespace emguCV
             {
                 cboDevice.Items.Add(info.Name);
             }
-            cboDevice.SelectedIndex = 0;
             foreach (string com in SerialPort.GetPortNames())
             {
                 ComCBO.Items.Add(com);
@@ -65,15 +64,11 @@ namespace emguCV
                 device.VideoResolution = device.VideoCapabilities[ResCBO.SelectedIndex];
 
             }
-            is_resSelected = true;
-            //device.NewFrame += Device_NewFrame;
-            //device.Start();
-            
+            is_resSelected = true;            
 
         }
         
-        static readonly CascadeClassifier Frontal_Face = new CascadeClassifier(@"C:\Users\PC\source\repos\emguCV\haarcascade_frontalface_alt_tree.xml");
-        static readonly CascadeClassifier Head = new CascadeClassifier(@"C:\Users\PC\source\repos\emguCV\haarcascade_fullbody.xml");
+        static readonly CascadeClassifier Frontal_Face = new CascadeClassifier(@"haarcascade_frontalface_alt_tree.xml");
         int x_pos;
         int y_pos;
         int sum_x;
@@ -87,7 +82,6 @@ namespace emguCV
             bitmap = (Bitmap)eventArgs.Frame.Clone();
             Image<Bgr, byte> grayImage = bitmap.ToImage<Bgr, byte>();
             Rectangle[] FrontalFaceRec = Frontal_Face.DetectMultiScale(grayImage, 1.05, 1);
-            //Rectangle[] ProfilFaceRec = SideView.DetectMultiScale(grayImage,1.5);
             foreach (Rectangle rec in FrontalFaceRec)
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
@@ -99,25 +93,7 @@ namespace emguCV
                 }
                 sum_x += rec.X + (rec.Width) / 2;
                 sum_y += rec.Y + (rec.Height) / 2;
-            }
-          /*  if (FrontalFaceRec.Length == 0)
-            {
-                Rectangle[] ProfilFaceRec = Head.DetectMultiScale(grayImage,1.1);
-                foreach(Rectangle rec in ProfilFaceRec)
-                {
-                    using (Graphics g = Graphics.FromImage(bitmap))
-                    {
-                        using (Pen pen = new Pen(Color.Red, 1))
-                        {
-                            g.DrawRectangle(pen, rec);
-                        }
-                    }
-                    sum_x += rec.X + (rec.Width) / 2;
-                    sum_y += rec.Y + (rec.Height) / 2;
-                }
-                
-            }
-          */
+            }     
             if (FrontalFaceRec.Length > 0)
             {
                 x_pos = sum_x / FrontalFaceRec.Length;
@@ -131,13 +107,13 @@ namespace emguCV
         }
         public void senderData()
         {
-            while (true)
+            while (port.IsOpen)
             {
                
                 if (bitmap != null && x_pos>0)
                 {
                     
-                    port.WriteLine($"{ToDegrees(x_pos, device.VideoResolution.FrameSize.Width)}");
+                    port.WriteLine($"X{ToDegrees(x_pos, device.VideoResolution.FrameSize.Width)}Y{ToDegrees(y_pos,device.VideoResolution.FrameSize.Height)}");
                     if (device.VideoResolution.FrameSize.Width < 1200)
                     {
                         Thread.Sleep(1000);
@@ -150,70 +126,11 @@ namespace emguCV
             }
 
         }
-        /* void ImageDetection(object _bitmap)
-        {
-            int  sum_x = 0;
-            int  sum_y = 0;
-            int y_pos;
-            int x_pos;
-            Bitmap _Bitmap = (Bitmap)_bitmap;
-          
-            if (_Bitmap != null)
-            {
-                try
-                {
-                    Image<Bgr, byte> grayImage = _Bitmap.ToImage<Bgr, byte>();
-                    Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2, 1);
-                    foreach (Rectangle rec in rectangles)
-                    {
-                        using (Graphics g = Graphics.FromImage(bitmap))
-                        {
-                            using (Pen pen = new Pen(Color.Red, 1))
-                            {
-                                g.DrawRectangle(pen, rec);
-                            }
-                        }
-                        sum_x += rec.X + (rec.Width) / 2;
-                        sum_y += rec.Y + (rec.Height) / 2;
-
-                    }
-                    if (rectangles.Length > 0)
-                    {
-                        x_pos = sum_x / rectangles.Length;
-                        y_pos = sum_y / rectangles.Length;
-                    }
-                    pictureBox1.Image = _Bitmap;
-
-                }
-                catch (Exception ex)
-                {
-
-                }
-
-            }
-            
-        
-        }
-        */
-
+       
         private int ToDegrees(int X,int screenWidth)
         {
-            //the feild of view is 68.5
-            /*double adder= screen.Width/68.5;
-            int degree=0;
-            for (var i = 0; i < screen.Width; i+=adder)
-            {
-                degree++;
-                if (x>=i&&x<i+adder)
-                {
-                    return degree;
-                }
-            }
-            */
             double pixelsfordegree= (screenWidth/68.5);
-            
-                return (int) (X/pixelsfordegree);
-            
+            return (int) (X/pixelsfordegree);
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {

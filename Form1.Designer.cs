@@ -86,7 +86,7 @@ namespace emguCV
             // 
             // Server_btn
             // 
-            this.Server_btn.Location = new System.Drawing.Point(111, 869);
+            this.Server_btn.Location = new System.Drawing.Point(12, 869);
             this.Server_btn.Name = "Server_btn";
             this.Server_btn.Size = new System.Drawing.Size(97, 23);
             this.Server_btn.TabIndex = 7;
@@ -125,7 +125,7 @@ namespace emguCV
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 869);
+            this.button3.Location = new System.Drawing.Point(444, 54);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 13;

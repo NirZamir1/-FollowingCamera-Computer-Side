@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UKOU7+oR1lS/GgXz+ZQGrWHb0VkMSK5x48vJlJoAEJcdeNUOws2/I3tK3K4vfPozleJu+zO6SqWFjycoQKap8g==",
+  "dgSpecHash": "mV/O/96SYbDnTBue9g++wdSBk35IV7sxzxFY8wGxE3BEC/zHkACPbshglI7z2LqQjXwZDpNgdwaQ52n+nC0kTw==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\source\\repos\\emguCV\\emguCV.csproj",
   "expectedPackageFiles": [
@@ -43,7 +43,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.16\\microsoft.netcore.app.host.win-x64.5.0.16.nupkg.sha512"
   ],
   "logs": [
     {
