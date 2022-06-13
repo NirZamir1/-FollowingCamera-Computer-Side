@@ -30,7 +30,6 @@ namespace ArduinoServerGit
             client = new TcpClient();
             R = new Thread(new ThreadStart(Run));
             R.Start();
-
         }
         public void Run()
         {
@@ -40,8 +39,6 @@ namespace ArduinoServerGit
                 {
                     client = listen.AcceptTcpClient();
                 }
-                
-
             }
         }
         public void send(string Data)
@@ -49,14 +46,12 @@ namespace ArduinoServerGit
             if (client.Connected)
             {
                 try
-                {
-                    
+                {   
                     byte[] data;
                     nwStream = client.GetStream();
                     DataToSend = Data;
                     data = Encoding.ASCII.GetBytes(DataToSend);
-                    nwStream.Write(data, 0, data.Length);
-                   
+                    nwStream.Write(data, 0, data.Length);                   
                 }
                 catch (Exception ex)
                 {

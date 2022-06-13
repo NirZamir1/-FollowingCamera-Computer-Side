@@ -16,7 +16,6 @@ using ArduinoServerGit;
 using System.Threading;
 using System.Timers;
 using System.IO.Ports;
-
 namespace emguCV
 {
     public partial class Form1 : Form
@@ -34,12 +33,10 @@ namespace emguCV
         {
 
         }
-
         private void cboDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             filter = new FilterInfoCollection(FilterCategory.VideoInputDevice);
@@ -56,18 +53,14 @@ namespace emguCV
         Thread thread;
         ParameterizedThreadStart imd;
         bool is_resSelected=false;
-        
         private void btnDetect_Click(object sender, EventArgs e)
         {
             if (Is_Decleared == true)
             {
                 device.VideoResolution = device.VideoCapabilities[ResCBO.SelectedIndex];
-
             }
             is_resSelected = true;            
-
-        }
-        
+        }       
         static readonly CascadeClassifier Frontal_Face = new CascadeClassifier(@"haarcascade_frontalface_alt_tree.xml");
         int x_pos;
         int y_pos;
@@ -98,18 +91,13 @@ namespace emguCV
             {
                 x_pos = sum_x / FrontalFaceRec.Length;
                 y_pos = sum_y / FrontalFaceRec.Length;
-                
-                
             }
             pictureBox1.Image = bitmap;
-
-
         }
         public void senderData()
         {
             while (port.IsOpen)
-            {
-               
+            {             
                 if (bitmap != null && x_pos>0)
                 {
                     
@@ -122,11 +110,11 @@ namespace emguCV
                     {
                         Thread.Sleep(2000);
                     }
+                    x_pos = 0;
+                    y_pos = 0;
                 }
             }
-
         }
-       
         private int ToDegrees(int X,int screenWidth)
         {
             double pixelsfordegree= (screenWidth/68.5);
@@ -143,12 +131,10 @@ namespace emguCV
                 }
             }
         }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -159,20 +145,16 @@ namespace emguCV
             server = new Server();
             Is_Open = true;
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
         }
-
         private void label1_Click_1(object sender, EventArgs e)
         {
 
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             device = new VideoCaptureDevice(filter[cboDevice.SelectedIndex].MonikerString);
@@ -185,11 +167,11 @@ namespace emguCV
         }
         bool isCom = false;
         Thread t;
+        System.Timers.Timer timer;
         private void button3_Click(object sender, EventArgs e)
         {
             if (is_resSelected)
             {
-               
                 port = new SerialPort(ComCBO.SelectedItem.ToString());
                 port.Open();
                 t = new Thread(new ThreadStart(senderData));
@@ -198,10 +180,8 @@ namespace emguCV
                 device.Start();
             }
         }
-
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
