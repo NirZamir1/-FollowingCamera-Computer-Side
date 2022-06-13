@@ -101,10 +101,10 @@ namespace emguCV
                 if (bitmap != null && x_pos>0)
                 {
                     
-                    port.WriteLine($"X{ToDegrees(x_pos, device.VideoResolution.FrameSize.Width)}Y{ToDegrees(y_pos,device.VideoResolution.FrameSize.Height)}");
+                    port.WriteLine($"X{ToDegrees(x_pos, device.VideoResolution.FrameSize.Width,68.5)}Y{ToDegrees(y_pos,device.VideoResolution.FrameSize.Height,34)}");
                     if (device.VideoResolution.FrameSize.Width < 1200)
                     {
-                        Thread.Sleep(1000);
+                       Thread.Sleep(1100);
                     }
                     else
                     {
@@ -115,9 +115,9 @@ namespace emguCV
                 }
             }
         }
-        private int ToDegrees(int X,int screenWidth)
+        private int ToDegrees(int X,int screenWidth,double fov)
         {
-            double pixelsfordegree= (screenWidth/68.5);
+            double pixelsfordegree= (screenWidth/fov);
             return (int) (X/pixelsfordegree);
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
